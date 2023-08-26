@@ -29,6 +29,9 @@ background_image = pygame.image.load("sa.png")
 background_image = pygame.transform.scale(background_image, (800, 600))
 background_image_menu = pygame.image.load("mainscreen.png") 
 background_image_menu = pygame.transform.scale(background_image_menu, (800, 600))
+
+winscreen = pygame.image.load("winscreen.png") 
+winscreen = pygame.transform.scale(winscreen, (800, 600))
 #panda_shipp = pygame.image.load("ship.png")
 #panda_shipp = pygame.transform.scale(panda_ship, (60, 120))
 
@@ -155,6 +158,7 @@ bg_y = 0
 
 scroll_speed = 2
 running = True
+win = False
 
 show_menu = True
 play_button_rect = play_button_image.get_rect(center=(screen_width // 2, screen_height // 1.5))
@@ -186,6 +190,11 @@ while running:
     if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
         if show_menu and play_button_rect.collidepoint(event.pos):
             show_menu = False
+  if win:
+        screen.blit(winscreen, (0, 0))
+        pygame.display.flip()
+        continue
+  
   if on_planet:
       
       if portal_type == "forest":
@@ -352,10 +361,8 @@ while running:
     )and on_planet == False:
      on_planet = True
 
-  if(score >= 10):
-      portal_type = "lava"
-
-
-  
+  if(score >= 20):
+        win = True
+ 
   #pygame.display.update()
 
